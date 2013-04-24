@@ -13,6 +13,7 @@
 
 struct _charweight charweights [] = 
   {
+//                           Weight  Class
     {'a', 	T_VOWEL, 	-5,	1},
     {'b', 	T_CONS, 	 5,	6},
     {'c', 	T_CONS, 	 5,	5},
@@ -34,8 +35,8 @@ struct _charweight charweights [] =
     {'s', 	T_CONS, 	 3,	8},
     {'t', 	T_CONS, 	 4,	7},
     {'u', 	T_VOWEL, 	-3,	1},
-    {'v', 	T_CONS, 	 4,	9},
-    {'w', 	T_CONS, 	 5,	2},
+    {'v', 	T_CONS, 	 5,	9},
+    {'w', 	T_CONS, 	 4,	2},
     {'x', 	T_CONS, 	 8,	2},
     {'y', 	T_CONS, 	 6,	2},
     {'z', 	T_CONS, 	 6,	8}
