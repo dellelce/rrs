@@ -1,0 +1,5 @@
+TARGET=rrstest
+includes="./includes"
+src_dir=src
+obj_dir=obj
+CompilerFlags="-Wall"

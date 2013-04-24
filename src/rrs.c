@@ -169,6 +169,9 @@ random_readable_string (int targetweight, int stringsize)
       
       if ((weight > targetweight) || (weight <= 0))
 	{
+#ifdef DEBUG
+	  printf ("weight = %d\n", weight);
+#endif
 	  weight = oldweight;
 	  continue;
 	}
@@ -214,3 +217,5 @@ random_readable_string (int targetweight, int stringsize)
   return Buf;
 }
 
+
+/* EOF */
