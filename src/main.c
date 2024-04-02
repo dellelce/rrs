@@ -1,21 +1,14 @@
 /* 
-
    File:    main.c
-   Created: 0117 240413
-
+   Created: 240413
 */
-
-// includes
 
 #include <stdio.h>
 #include "rrs.h"
 
-// main
-
 int
 main (int argc, char **argv)
 {
-  // insert code here
   unsigned int v; 
   unsigned int len;
 
@@ -24,10 +17,5 @@ main (int argc, char **argv)
 
   printf("%s\n", random_readable_string (v, len));
 
-  // generic return
-
   return 0;
 }
-
-
-// ** EOF **
