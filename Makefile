@@ -1,17 +1,14 @@
-
 #
 # rrstest, 2013 by Antonio Dell'elce, antonio@dellelce.com
 #
-
 CC             = gcc
 TARGET         = rrstest
 
 SHELL          = /bin/bash
 
 CFILES         = src/main.c src/rrs.c
-OFILES         = obj/main.o obj/rrs.o
+OFILES         = o/main.o o/rrs.o
 LDFLAGS	       = 
-
 
 LOC_HFILES     = 
 HFILES         = $(LOC_HFILES)
@@ -21,11 +18,9 @@ DEBUG          =
 CFLAGS         = -Wall -O2  $(INCLUDES) $(DEBUG)
 LIBS           = 
 
-
 #
 # --- RULES ---
 #
-
 all: $(TARGET)
 
 $(TARGET):   $(OFILES)
@@ -35,26 +30,19 @@ $(TARGET):   $(OFILES)
 #
 # -- DEPS --
 #
-
-obj/main.o: src/main.c $(HFILES) ./includes/rrs.h
+o/main.o: src/main.c $(HFILES) ./includes/rrs.h
 	@echo "CC "src/main.c
-	@$(CC) -c $(CFLAGS) -o obj/main.o src/main.c
+	@$(CC) -c $(CFLAGS) -o o/main.o src/main.c
 
-obj/rrs.o: src/rrs.c $(HFILES) ./includes/rrs.h
+o/rrs.o: src/rrs.c $(HFILES) ./includes/rrs.h
 	@echo "CC "src/rrs.c
-	@$(CC) -c $(CFLAGS) -o obj/rrs.o src/rrs.c
+	@$(CC) -c $(CFLAGS) -o o/rrs.o src/rrs.c
 
- 
 #  
 # clean
-#    
-     
 clean:
 	rm -f $(TARGET) $(OFILES) $(LOC_HFILES) *.exe
 
 #
 # redo
-#
-
 redo: clean all
-
