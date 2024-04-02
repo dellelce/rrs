@@ -11,7 +11,7 @@
 
 #warning "class matrix not completed."
 
-struct _charweight charweights [] = 
+struct _charweight charweights [] =
   {
 //                           Weight  Class
     {'a', 	T_VOWEL, 	-5,	1},
@@ -72,7 +72,7 @@ struct _charweight charweights [] =
 
   Relationship matrix (BASE)
 
-  When 
+  When
 
   xxx   | null    vowels    w-x    c-q    p-b    t-d    s-z    f-v    h
   ------+
@@ -109,10 +109,10 @@ yasgr_randomchar (void)
   static unsigned long SeedStatus = 0;
 
   if (!SeedStatus)
-    {
-      SeedStatus = 1;
-      srandom ((unsigned int) (time (0) & 0xFFFL));
-    }
+  {
+     SeedStatus = 1;
+     srandom ((unsigned int) (time (0) & 0xFFFL));
+  }
 
   /* yet another stupid random generator - YASGR ! */
 
@@ -123,17 +123,14 @@ yasgr_randomchar (void)
   return (T % 26);
 }
 
-/* 
- *
+/*
  * Use randomchar() to generate a pseudo-random string
  *
  * TODO:
  *
- *      - Add a PositionWeight .... 
- *
+ *      - Add a PositionWeight ....
  *
  */
-
 char *
 random_readable_string (int targetweight, int stringsize)
 {
@@ -147,73 +144,59 @@ random_readable_string (int targetweight, int stringsize)
 
   static char Buf[LOCAL_RRS_BUFFER_SIZE];
 
-  if (Cnt == 0)
-    {
-      Cnt = 10;
-    } 
+  if (Cnt == 0) { Cnt = 10; }
 
-  if (Cnt > sizeof (Buf))
-    {
-      Cnt = sizeof (Buf);
-    }
+  if (Cnt > sizeof (Buf)) { Cnt = sizeof (Buf); }
 
   while (Cnt)
-    {
-      Container = yasgr_randomchar ();
+  {
+     Container = yasgr_randomchar ();
 
-      /* Save weight and calculate new weight */
+     /* Save weight and calculate new weight */
 
-      oldweight = weight;
-      weight += charweights[Container].Weight;
+     oldweight = weight;
+     weight += charweights[Container].Weight;
 
-      /* Check if the coin would add an acceptable weight if not we keep the previous weight  */
-      
-      if ((weight > targetweight) || (weight <= 0))
-	{
+     /* Check if the coin would add an acceptable weight
+        if not we keep the previous weight
+      */
+
+     if ((weight > targetweight) || (weight <= 0))
+     {
 #ifdef DEBUG
-	  printf ("weight = %d\n", weight);
+        printf ("weight = %d\n", weight);
 #endif
-	  weight = oldweight;
-	  continue;
-	}
+        weight = oldweight;
+        continue;
+     }
 
       /* check if it we already have three consonants or vowels */
 
-      if ((charweights[Container].Type) == T_VOWEL)
-	{
-	  conscnt = 0;
-	  
-	  if (vowelcnt == 2)
-	    {
-	      /* we don't allow more than 2 vowels */
-	      continue;
-	    }
-	  else
-	    {
-	      vowelcnt += 1;
-	    }
-	}
-      else
-	{
-	  vowelcnt = 0;
+     if ((charweights[Container].Type) == T_VOWEL)
+     {
+        conscnt = 0;
 
-	  if (conscnt == 2)
-	    {
-	      /* already enough consonants -- keep looking */
-	      continue; 
-	    }
-	  else
-	    {
-	      conscnt += 1;
-	    }
-	}
+        /* we don't allow more than 2 vowels */
+        if (vowelcnt == 2) continue;
 
-      Buf[BufCnt]   = charweights[Container].Ch;
-      Buf[BufCnt+1] = 0;
+        vowelcnt += 1;
+     }
+     else
+     {
+        vowelcnt = 0;
 
-      BufCnt += 1;
-      Cnt -= 1;
-    }
+	/* already enough consonants -- keep looking */
+        if (conscnt == 2) continue;
+
+        conscnt += 1;
+     }
+
+     Buf[BufCnt]   = charweights[Container].Ch;
+     Buf[BufCnt+1] = 0;
+
+     BufCnt += 1;
+     Cnt -= 1;
+  }
 
   return Buf;
 }
