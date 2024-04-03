@@ -44,5 +44,9 @@ clean:
 	rm -f $(TARGET) $(OFILES) $(LOC_HFILES) *.exe
 
 #
+run: $(TARGET)
+	@./$(TARGET)
+
+#
 # redo
 redo: clean all
