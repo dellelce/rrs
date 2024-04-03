@@ -47,6 +47,8 @@ clean:
 run: $(TARGET)
 	@./$(TARGET)
 
+run5: $(TARGET)
+	@for i in 1 2 3 4 5; do ./$(TARGET); done
 #
 # redo
 redo: clean all
