@@ -9,8 +9,6 @@
 #define LOCAL_RRS_BUFFER_SIZE 256
 #endif /* LOCAL_RRS_BUFFER_SIZE */
 
-#warning "class matrix not completed."
-
 struct _charweight charweights [] =
   {
 //                           Weight  Class
@@ -41,8 +39,6 @@ struct _charweight charweights [] =
     {'y', 	T_CONS, 	 6,	2},
     {'z', 	T_CONS, 	 6,	8}
   };
-
-
 
 /* Description of the 'ClassWeight' column:
 
