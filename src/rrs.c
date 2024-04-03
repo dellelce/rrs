@@ -62,20 +62,17 @@ struct _charweight charweights [] =
 
   Relationship matrix (BASE)
 
-  When
-
-  xxx    | null    vowels   w-x    c-q    p-b    t-d    s-z    f-v    h
-  -------+
-  vowels     0      1        -2     -1     0      0     -1     -1     0
-  w-x        8      1         5      5     x      x      x      x     5
-  c-q       10      x         x      x     x      x      x      x     5
-  p-b        9      x         x      x     x      x      x      x     5
-  t-d        9      x         x      x     x      x      x      x     5
-  s-z        2      x         x      x     x      x      x      x     5
-  f-v        5      x         x      x     x      x      x      x     5
-  h          1      x         x      x     x      x      x      x     7
-
- */
+   xxx    | null    vowels   w-x    c-q    p-b    t-d    s-z    f-v    h
+   -------+
+   vowels     0      1        -2     -1     0      0     -1     -1     0
+   w-x        8      1         5      5     x      x      x      x     5
+   c-q       10      x         x      x     x      x      x      x     5
+   p-b        9      x         x      x     x      x      x      x     5
+   t-d        9      x         x      x     x      x      x      x     5
+   s-z        2      x         x      x     x      x      x      x     5
+   f-v        5      x         x      x     x      x      x      x     5
+   h          1      x         x      x     x      x      x      x     7
+*/
 
 
 /*
@@ -118,7 +115,7 @@ random_readable_string (int targetweight, int stringsize)
 {
   int  Cnt        = stringsize; /* stringsize might be used directly */
   int  BufCnt     = 0;
-  int  weight     = 0;
+  int  weight     = 5; // initial weight: higher to avoid double consonants at beginning
   int  conscnt    = 0;
   int  vowelcnt   = 0;
   int  oldweight;
