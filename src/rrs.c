@@ -70,40 +70,64 @@ struct _charweight charweights [] =
    h          1      x         x      x     x      x      x      x     7
 */
 
+/*
+ * Generate real random character
+ */
+
+int urandom_int()
+{
+  int fd;
+  int randomValue = 0;
+  int maxTry = 128;
+  ssize_t result;
+
+  fd = open("/dev/urandom", O_RDONLY);
+  if (fd < 0) return 0;
+
+  while (randomValue == 0)
+  {
+    result = read(fd, &randomValue, sizeof(randomValue));
+
+    // Failed: just close and return 0
+    if (result < 0) { close(fd); return 0; }
+
+    // this will never happen... but just in case...
+    maxTry -= 1;
+    if (maxTry == 0) { close(fd); return 0; }
+  }
+
+  close(fd);
+
+  return randomValue;
+}
 
 /*
- *
  * Generate a random character
- *
  */
+static unsigned long SeedStatus;
+static unsigned long T;
 
 int
 yasgr_randomchar (void)
 {
-  static unsigned long T;
-  static unsigned long SeedStatus = 0;
-
-  if (!SeedStatus)
+  if (SeedStatus == 0 || (SeedStatus % 9) == 0)
   {
-     SeedStatus = 1;
-     srandom ((unsigned int) (time (0) & 0xFFFL));
+    srandom(urandom_int());
   }
 
+  SeedStatus += 1;
+
   /* yet another stupid random generator - YASGR ! */
+  T += random() - ((random() & 0xFFFFL) << 8) + (time(0) & 0xFFL) +
+       ((time(0) & 0x01FFF000) >> 12);
 
-  T = random () - ((random () & 0xFFFFL) << 8) + (time(0) & 0xFFL) + ((time(0) & 0x01FFF000) >> 12);
+  T = ((T & 0x00FFL) + ((T & 0xFF00L) >> 8) - 1) % 26;
 
-  T = (T & 0x00FFL) + ((T & 0xFF00L) >> 8) - 1;
-
-  return (T % 26);
+  return T;
 }
 
 /*
  * Use randomchar() to generate a pseudo-random string
- *
- * TODO:
- *
- *      - Add a PositionWeight ....
  *
  */
 char *
@@ -124,7 +148,7 @@ random_readable_string (int targetweight, int stringsize)
 
   while (Cnt)
   {
-     Container = yasgr_randomchar ();
+     Container = yasgr_randomchar();
 
      /* Save weight and calculate new weight */
 
@@ -137,9 +161,6 @@ random_readable_string (int targetweight, int stringsize)
 
      if ((weight > targetweight) || (weight <= 0))
      {
-#ifdef DEBUG
-        printf ("weight = %d\n", weight);
-#endif
         weight = oldweight;
         continue;
      }
