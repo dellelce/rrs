@@ -48,50 +48,32 @@ struct _charweight charweights [] =
 
    Class is the type of character:
 
-   0. 'null' class - start of word
-
-   1. a, e, i, o, u - vowels
-
-   2. w, y, x
-
-   3. m, n
-
-   4. r, l
-
-   5. c, k, g, j, q
-
-   6. p, b
-
-   7. t, d
-
-   8. s, z
-
-   9. f, v
-
-   10. h
+   0.  'null' class - start of word
+   1.   a, e, i, o, u - vowels
+   2.   w, y, x
+   3.   m, n
+   4.   r, l
+   5.   c, k, g, j, q
+   6.   p, b
+   7.   t, d
+   8.   s, z
+   9.   f, v
+   10.  h
 
   Relationship matrix (BASE)
 
   When
 
-  xxx   | null    vowels    w-x    c-q    p-b    t-d    s-z    f-v    h
-  ------+
-  vowels   0        1        -2     -1     0      0     -1     -1     0
-
-  w-x      8        1         5      5     x      x      x      x     5
-
-  c-q     10        x         x      x     x      x      x      x     5
-
-  p-b      9        x         x      x     x      x      x      x     5
-
-  t-d      9        x         x      x     x      x      x      x     5
-
-  s-z      2        x         x      x     x      x      x      x     5
-
-  f-v      5        x         x      x     x      x      x      x     5
-
-  h        1        x         x      x     x      x      x      x     7
-
+  xxx    | null    vowels   w-x    c-q    p-b    t-d    s-z    f-v    h
+  -------+
+  vowels     0      1        -2     -1     0      0     -1     -1     0
+  w-x        8      1         5      5     x      x      x      x     5
+  c-q       10      x         x      x     x      x      x      x     5
+  p-b        9      x         x      x     x      x      x      x     5
+  t-d        9      x         x      x     x      x      x      x     5
+  s-z        2      x         x      x     x      x      x      x     5
+  f-v        5      x         x      x     x      x      x      x     5
+  h          1      x         x      x     x      x      x      x     7
 
  */
 
@@ -144,9 +126,8 @@ random_readable_string (int targetweight, int stringsize)
 
   static char Buf[LOCAL_RRS_BUFFER_SIZE];
 
-  if (Cnt == 0) { Cnt = 10; }
-
-  if (Cnt > sizeof (Buf)) { Cnt = sizeof (Buf); }
+  if (Cnt == 0) Cnt = 10;
+  if (Cnt > sizeof (Buf)) Cnt = sizeof (Buf);
 
   while (Cnt)
   {
